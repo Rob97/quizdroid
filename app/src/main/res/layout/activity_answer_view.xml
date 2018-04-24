@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".answerView">
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="0dp">
+
+
+        <EditText
+            android:id="@+id/answerChoosenTag"
+            android:layout_width="109dp"
+            android:layout_height="wrap_content"
+
+            android:layout_weight="1"
+            android:ems="10"
+            android:focusable="false"
+            android:gravity="center"
+            android:inputType="textPersonName"
+            android:text="@string/answerChoosenTag" />
+
+        <TextView
+            android:id="@+id/answerChoosen"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/answerChoosenTag"
+            android:layout_toEndOf="@+id/answerChoosenTag"
+            android:gravity="center"
+            android:text="hi"
+            android:textSize="20sp" />
+
+        <EditText
+            android:id="@+id/correctAnswerTag"
+            android:layout_width="189dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/answerChoosenTag"
+            android:layout_weight="1"
+            android:ems="10"
+            android:focusable="false"
+            android:inputType="textPersonName"
+            android:text="@string/correctAnswerTag" />
+
+        <TextView
+            android:id="@+id/correctAnswer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/correctAnswerTag"
+            android:layout_toEndOf="@+id/correctAnswerTag"
+            android:gravity="center"
+            android:text="correctAnswer"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/correctAnswerCount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:layout_below="@+id/correctAnswerTag"
+            android:layout_centerHorizontal="true"
+            android:gravity="center"
+            android:text=""
+            android:textSize="20sp" />
+
+        <Button
+            android:id="@+id/nextButton"
+            android:layout_width="99dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="139dp"
+            android:text="@string/nextButton" />
+        <Button
+            android:id="@+id/finishButton"
+            android:layout_width="99dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="139dp"
+            android:text="@string/finishButton" />
+
+
+    </RelativeLayout>
+
+</android.support.constraint.ConstraintLayout>

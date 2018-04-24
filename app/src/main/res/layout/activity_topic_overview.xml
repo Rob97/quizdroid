@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".TopicOverview">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="0dp">
+
+        <EditText
+            android:id="@+id/topic"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:ems="10"
+            android:focusable="false"
+            android:gravity="center"
+            android:inputType="textPersonName"
+            android:text="Name"
+            android:textAlignment="center" />
+
+        <EditText
+            android:id="@+id/descriptionTag"
+            android:layout_width="109dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/topic"
+            android:layout_weight="1"
+            android:ems="10"
+            android:focusable="false"
+            android:gravity="center"
+            android:inputType="textPersonName"
+            android:text="@string/descriptionTag" />
+
+        <TextView
+            android:id="@+id/description"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/descriptionTag"
+            android:layout_toEndOf="@+id/descriptionTag"
+            android:gravity="center"
+            android:text="hi"
+            android:textSize="20sp" />
+
+        <EditText
+            android:id="@+id/NumberOfQuestionsTag"
+            android:layout_width="189dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/descriptionTag"
+            android:layout_weight="1"
+            android:ems="10"
+            android:focusable="false"
+            android:inputType="textPersonName"
+            android:text="@string/NumberOfQuestionsTag" />
+
+        <TextView
+            android:id="@+id/NumberOfQuestions"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/NumberOfQuestionsTag"
+            android:layout_toEndOf="@+id/NumberOfQuestionsTag"
+            android:gravity="center"
+            android:text="@string/NumberOfQuestions"
+            android:textSize="20sp" />
+
+        <Button
+            android:id="@+id/beginButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="28dp"
+            android:text="@string/beginButton" />
+
+
+    </RelativeLayout>
+
+</android.support.constraint.ConstraintLayout>
