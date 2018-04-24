@@ -47,7 +47,7 @@
             android:textSize="20sp" />
 
         <EditText
-            android:id="@+id/NumberOfQuestionsTag"
+            android:id="@+id/numberOfQuestionsTag"
             android:layout_width="189dp"
             android:layout_height="wrap_content"
             android:layout_below="@+id/descriptionTag"
@@ -55,16 +55,16 @@
             android:ems="10"
             android:focusable="false"
             android:inputType="textPersonName"
-            android:text="@string/NumberOfQuestionsTag" />
+            android:text="@string/numberOfQuestionsTag" />
 
         <TextView
-            android:id="@+id/NumberOfQuestions"
+            android:id="@+id/numberOfQuestions"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignBaseline="@+id/NumberOfQuestionsTag"
-            android:layout_toEndOf="@+id/NumberOfQuestionsTag"
+            android:layout_alignBaseline="@+id/numberOfQuestionsTag"
+            android:layout_toEndOf="@+id/numberOfQuestionsTag"
             android:gravity="center"
-            android:text="@string/NumberOfQuestions"
+            android:text="@string/numberOfQuestions"
             android:textSize="20sp" />
 
         <Button

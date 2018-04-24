@@ -1,8 +1,8 @@
 <resources>
     <string name="app_name">quizdroid</string>
     <string name="descriptionTag">Description: </string>
-    <string name="NumberOfQuestionsTag">Number of Questions: </string>
-    <string name="NumberOfQuestions">1</string>
+    <string name="numberOfQuestionsTag">Number of Questions: </string>
+    <string name="numberOfQuestions">1</string>
     <string name="beginButton">Begin</string>
     <string name="submitButton">Submit</string>
     <string name="answerChoosenTag">You answered: </string>

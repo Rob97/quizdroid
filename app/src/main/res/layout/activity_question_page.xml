@@ -8,24 +8,27 @@
 
     <RelativeLayout
 
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:layout_editor_absoluteX="0dp"
-        tools:layout_editor_absoluteY="590dp">
+        android:id="@+id/relativeLayout"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
         <TextView
-            android:id="@+id/Question"
+            android:id="@+id/question"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="TextView"
             android:gravity="center"
+            android:text="TextView"
             android:textSize="20sp" />
 
         <RelativeLayout
-            android:id="@+id/Answers"
+            android:id="@+id/answers"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/Question"
+            android:layout_below="@id/question"
             android:layout_centerHorizontal="true">
 
             <RadioGroup
@@ -41,14 +44,14 @@
                     android:orientation="horizontal">
 
                     <RadioButton
-                        android:id="@+id/Answer1"
+                        android:id="@+id/answer1"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:text="Answer1" />
 
                     <RadioButton
-                        android:id="@+id/Answer2"
+                        android:id="@+id/answer2"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
@@ -61,14 +64,14 @@
                     android:orientation="horizontal">
 
                     <RadioButton
-                        android:id="@+id/Answer3"
+                        android:id="@+id/answer3"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:text="Answer3" />
 
                     <RadioButton
-                        android:id="@+id/Answer4"
+                        android:id="@+id/answer4"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
@@ -83,7 +86,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
-            android:layout_below="@id/Answers"
+            android:layout_below="@id/answers"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="185dp"
             android:text="@string/submitButton" />

@@ -16,8 +16,12 @@ class MainActivity : AppCompatActivity() {
 
 
         val listView = findViewById<ListView>(R.id.listView)
-        val topicOverviewInent = Intent(this, TopicOverview::class.java)
-
+        val topicOverviewIntent = Intent(this, TopicOverview::class.java)
+        val mathQuestionsAndAnswers = arrayOf(mapOf("question" to "What is one plus one?","answers" to arrayListOf<String>("1","2","3","4"), "correctAnswer" to "4"))
+        val mathQuestions = arrayOf("What is one plus one?")
+        val mathAnswers = arrayOf("1","2","3","4")
+        val mathCorrectAnswers = arrayOf("4")
+        val mathDescription = "Basic Math Questions"
         val adapter = ArrayAdapter<String>(this,
                 android.R.layout.simple_list_item_1, android.R.id.text1, classes)
         listView.adapter = adapter
@@ -29,16 +33,22 @@ class MainActivity : AppCompatActivity() {
             Log.i("MainActivity", "This is the id var ${id.toString()}")
             Log.i("MainActivity", "You've selected ${classes[position]}")
             if(classes[position].equals("Math")){
-                startActivity(topicOverviewInent)
+                intent.putExtra("questionsAndAnswers", mathQuestionsAndAnswers);
+                intent.putExtra("questions", mathQuestions);
+                intent.putExtra("answers", mathAnswers);
+                intent.putExtra("correctAnswers", mathCorrectAnswers);
+                intent.putExtra("topic","${classes[position]}" )
+                intent.putExtra("description", mathDescription)
+                startActivity(topicOverviewIntent)
 
 
             }
             if(classes[position].equals("Physics")){
-                startActivity(topicOverviewInent)
+                startActivity(topicOverviewIntent)
 
             }
             if(classes[position].equals("Marvel Super Heroes")){
-                startActivity(topicOverviewInent)
+                startActivity(topicOverviewIntent)
 
             }
         })
