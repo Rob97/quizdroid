@@ -10,13 +10,13 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:layout_editor_absoluteX="0dp"
-        tools:layout_editor_absoluteY="0dp">
+        tools:layout_editor_absoluteX="16dp"
+        tools:layout_editor_absoluteY="31dp">
 
 
         <EditText
             android:id="@+id/answerChoosenTag"
-            android:layout_width="109dp"
+            android:layout_width="136dp"
             android:layout_height="wrap_content"
 
             android:layout_weight="1"
@@ -76,6 +76,7 @@
             android:layout_centerHorizontal="true"
             android:layout_marginTop="139dp"
             android:text="@string/nextButton" />
+
         <Button
             android:id="@+id/finishButton"
             android:layout_width="99dp"
