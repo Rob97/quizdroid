@@ -6,6 +6,9 @@ import android.os.Bundle
 import android.widget.Button
 import android.widget.TextView
 import android.widget.EditText
+import android.R.attr.key
+
+
 
 class TopicOverview : AppCompatActivity() {
 
@@ -18,31 +21,28 @@ class TopicOverview : AppCompatActivity() {
         val topicName = findViewById(R.id.topic) as EditText
        // val numberOfQuestions = findViewById(R.id.numberOfQuestions) as TextView
         var questions = ""
-        var answers = ""
+        var answers = arrayOf("")
         var correctAnswers =""
 
-        var topicStuff = getIntent().getExtras();
+        var topicStuff = getIntent().extras;
+        println("topicStuff  " + topicStuff)
         if (topicStuff != null) {
             topicDescription.setText(topicStuff.getString("description"));
             topicName.setText(topicStuff.getString("topic"))
 //            numberOfQuestions.setText(topicStuff.getString("questions").length.toString())
-            questions =  topicStuff.getString(questions)
-            answers = topicStuff.getString(answers)
-            correctAnswers = topicStuff.getString(correctAnswers)
+            questions =  topicStuff.getString("questions")
+            answers = topicStuff.getStringArray("answers")
+             // = topicStuff.getStringArrayList("answers")
+            correctAnswers = topicStuff.getString("correctAnswers")
 
         }
-
-
-
-
-
-
-
-
             startButton.setOnClickListener({ view ->
-                intent.putExtra("questions", questions[0]);
+//                val b = Bundle()
+//                b.putStringArrayList("answers", answers)
+
+                intent.putExtra("questions", questions);
                 intent.putExtra("answers", answers);
-                intent.putExtra("correctAnswers", correctAnswers[0]);
+                intent.putExtra("correctAnswers", correctAnswers);
             startActivity(questionIntent)
         })
     }

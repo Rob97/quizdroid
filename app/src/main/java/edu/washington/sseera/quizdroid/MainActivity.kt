@@ -16,8 +16,8 @@ class MainActivity : AppCompatActivity() {
 
 
         val listView = findViewById<ListView>(R.id.listView)
-        val topicOverviewIntent = Intent(this, TopicOverview::class.java)
-        val mathQuestionsAndAnswers = arrayOf(mapOf("question" to "What is one plus one?","answers" to arrayListOf<String>("1","2","3","4"), "correctAnswer" to "4"))
+       // val topicOverviewIntent = Intent(this, TopicOverview::class.java)
+       // val mathQuestionsAndAnswers = arrayListOf(mapOf("question" to "What is one plus one?","answers" to arrayListOf<String>("1","2","3","4"), "correctAnswer" to "4"))
         val mathQuestions = arrayOf("What is one plus one?")
         val mathAnswers = arrayOf("1","2","3","4")
         val mathCorrectAnswers = arrayOf("4")
@@ -26,32 +26,43 @@ class MainActivity : AppCompatActivity() {
                 android.R.layout.simple_list_item_1, android.R.id.text1, classes)
         listView.adapter = adapter
 
-        listView.setOnItemClickListener ({parent,v,position, id ->
-            Log.i("MainActivity", "This is the parent var ${parent.toString()}")
-            Log.i("MainActivity", "This is the v var ${v.toString()}")
-            Log.i("MainActivity", "This is the position var ${position.toString()}")
-            Log.i("MainActivity", "This is the id var ${id.toString()}")
-            Log.i("MainActivity", "You've selected ${classes[position]}")
-            if(classes[position].equals("Math")){
-                intent.putExtra("questionsAndAnswers", mathQuestionsAndAnswers);
-                intent.putExtra("questions", mathQuestions);
+//        listView.setOnItemClickListener ({parent,v,position, id ->
+//            Log.i("MainActivity", "This is the parent var ${parent.toString()}")
+//            Log.i("MainActivity", "This is the v var ${v.toString()}")
+//            Log.i("MainActivity", "This is the position var ${position.toString()}")
+//            Log.i("MainActivity", "This is the id var ${id.toString()}")
+//            Log.i("MainActivity", "You've selected ${classes[position]}")
+//            if(classes[position].equals("Math")){
+//              //  intent.putExtra("questionsAndAnswers", mathQuestionsAndAnswers);
+//                intent.putExtra("questions", mathQuestions[0]);
+//                intent.putExtra("answers", mathAnswers);
+//                intent.putExtra("correctAnswers", mathCorrectAnswers[0]);
+//                intent.putExtra("topic","${classes[position]}" )
+//                intent.putExtra("description", mathDescription)
+//                startActivity(topicOverviewIntent)
+//            }
+
+            listView.setOnItemClickListener({ parent, v, position, id ->
+                val intent = Intent(this, TopicOverview::class.java)
+                // Any kind of extra you want to bundle inside
+                intent.putExtra("topic", listView.getItemAtPosition(position).toString())
+                intent.putExtra("questions", mathQuestions[0]);
                 intent.putExtra("answers", mathAnswers);
-                intent.putExtra("correctAnswers", mathCorrectAnswers);
-                intent.putExtra("topic","${classes[position]}" )
+                intent.putExtra("correctAnswers", mathCorrectAnswers[0]);
                 intent.putExtra("description", mathDescription)
-                startActivity(topicOverviewIntent)
+                startActivity(intent)
+            })
 
 
-            }
-            if(classes[position].equals("Physics")){
-                startActivity(topicOverviewIntent)
-
-            }
-            if(classes[position].equals("Marvel Super Heroes")){
-                startActivity(topicOverviewIntent)
-
-            }
-        })
+//            if(classes[position].equals("Physics")){
+//                startActivity(topicOverviewIntent)
+//
+//            }
+//            if(classes[position].equals("Marvel Super Heroes")){
+//                startActivity(topicOverviewIntent)
+//
+//            }
+//        })
 
     }
 }
