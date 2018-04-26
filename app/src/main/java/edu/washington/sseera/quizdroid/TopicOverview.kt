@@ -7,6 +7,7 @@ import android.widget.Button
 import android.widget.TextView
 import android.widget.EditText
 import android.R.attr.key
+import android.util.Log
 
 
 
@@ -15,7 +16,7 @@ class TopicOverview : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_topic_overview)
-        val questionIntent = Intent(this, QuestionPage::class.java)
+
         val startButton = findViewById(R.id.beginButton) as Button
         val topicDescription = findViewById(R.id.description) as TextView
         val topicName = findViewById(R.id.topic) as EditText
@@ -36,13 +37,15 @@ class TopicOverview : AppCompatActivity() {
             correctAnswers = topicStuff.getString("correctAnswers")
 
         }
+        Log.i("Topic Overview", questions)
+        Log.i("Topic Overview", answers[0])
             startButton.setOnClickListener({ view ->
+                val questionIntent = Intent(this, QuestionPage::class.java)
 //                val b = Bundle()
 //                b.putStringArrayList("answers", answers)
-
-                intent.putExtra("questions", questions);
-                intent.putExtra("answers", answers);
-                intent.putExtra("correctAnswers", correctAnswers);
+                questionIntent.putExtra("questions", questions);
+                questionIntent.putExtra("answers", answers);
+                questionIntent.putExtra("correctAnswers", correctAnswers);
             startActivity(questionIntent)
         })
     }

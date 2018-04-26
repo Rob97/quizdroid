@@ -17,11 +17,23 @@ class MainActivity : AppCompatActivity() {
 
         val listView = findViewById<ListView>(R.id.listView)
        // val topicOverviewIntent = Intent(this, TopicOverview::class.java)
+        val intent = Intent(this, TopicOverview::class.java)
        // val mathQuestionsAndAnswers = arrayListOf(mapOf("question" to "What is one plus one?","answers" to arrayListOf<String>("1","2","3","4"), "correctAnswer" to "4"))
         val mathQuestions = arrayOf("What is one plus one?")
         val mathAnswers = arrayOf("1","2","3","4")
         val mathCorrectAnswers = arrayOf("4")
         val mathDescription = "Basic Math Questions"
+
+        val physicsQuestions = arrayOf("Does gravity exist?")
+        val physicsAnswers = arrayOf("Yes","No","Maybe","I don't know")
+        val physicsCorrectAnswers = arrayOf("Yes")
+        val physicsDescription = "Basic Physics Questions"
+
+        val marvelQuestions = arrayOf("Is Batman in Iron Man 2?")
+        val marvelAnswers = arrayOf("No","Yes","Maybe","I don't know")
+        val marvelCorrectAnswers = arrayOf("No")
+        val marvelDescription = "Basic Marvel Questions"
+
         val adapter = ArrayAdapter<String>(this,
                 android.R.layout.simple_list_item_1, android.R.id.text1, classes)
         listView.adapter = adapter
@@ -43,26 +55,39 @@ class MainActivity : AppCompatActivity() {
 //            }
 
             listView.setOnItemClickListener({ parent, v, position, id ->
-                val intent = Intent(this, TopicOverview::class.java)
-                // Any kind of extra you want to bundle inside
+
                 intent.putExtra("topic", listView.getItemAtPosition(position).toString())
                 intent.putExtra("questions", mathQuestions[0]);
                 intent.putExtra("answers", mathAnswers);
                 intent.putExtra("correctAnswers", mathCorrectAnswers[0]);
                 intent.putExtra("description", mathDescription)
                 startActivity(intent)
-            })
 
 
-//            if(classes[position].equals("Physics")){
-//                startActivity(topicOverviewIntent)
-//
-//            }
-//            if(classes[position].equals("Marvel Super Heroes")){
-//                startActivity(topicOverviewIntent)
-//
-//            }
-//        })
+
+            if(classes[position].equals("Physics")){
+
+
+                intent.putExtra("topic", listView.getItemAtPosition(position).toString())
+                intent.putExtra("questions", physicsQuestions[0]);
+                intent.putExtra("answers", physicsAnswers);
+                intent.putExtra("correctAnswers", physicsCorrectAnswers[0]);
+                intent.putExtra("description", physicsDescription)
+                startActivity(intent)
+
+            }
+            if(classes[position].equals("Marvel Super Heroes")){
+
+
+                intent.putExtra("topic", listView.getItemAtPosition(position).toString())
+                intent.putExtra("questions", marvelQuestions[0]);
+                intent.putExtra("answers", marvelAnswers);
+                intent.putExtra("correctAnswers", marvelCorrectAnswers[0]);
+                intent.putExtra("description", marvelDescription)
+                startActivity(intent)
+
+            }
+        })
 
     }
 }

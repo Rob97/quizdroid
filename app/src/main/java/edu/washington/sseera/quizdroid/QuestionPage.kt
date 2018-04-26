@@ -7,6 +7,8 @@ import android.view.View
 import android.widget.Button
 import android.widget.RadioButton
 import android.widget.TextView
+import android.util.Log
+import android.widget.RadioGroup
 
 
 class QuestionPage : AppCompatActivity() {
@@ -16,48 +18,63 @@ class QuestionPage : AppCompatActivity() {
         setContentView(R.layout.activity_question_page)
 
         val answerIntent = Intent(this, answerView::class.java)
-        val submitButton = findViewById(R.id.submitButton) as Button
-        val question = findViewById(R.id.question) as TextView
-        val answer1 = findViewById(R.id.answer1) as RadioButton
-        val answer2 = findViewById(R.id.answer2) as RadioButton
-        val answer3 = findViewById(R.id.answer3) as RadioButton
-        val answer4 = findViewById(R.id.answer4) as RadioButton
-        var selectedAnswer: RadioButton? = null;
-        var correctAnswer = "";
+        val submitButton = findViewById<Button>(R.id.submitButton)
+        val question = findViewById<TextView>(R.id.question)
+        val answer1 = findViewById<RadioButton>(R.id.answer1)
+        val answer2 = findViewById<RadioButton>(R.id.answer2)
+        val answer3 = findViewById<RadioButton>(R.id.answer3)
+        val answer4 = findViewById<RadioButton>(R.id.answer4)
+        val radioGroup = findViewById<RadioGroup>(R.id.answers)
+        var selectedAnswer: CharSequence? = null
 
-        var qandA = getIntent().getExtras();
 
-        question.setText(qandA.getString("questions"))
-        correctAnswer = qandA.getString("correctAnswers")
-        answer1.setText(qandA.getString("answers")[0].toString())
-        answer2.setText(qandA.getString("answers")[1].toString())
-        answer3.setText(qandA.getString("answers")[2].toString())
-        answer4.setText(qandA.getString("answers")[3].toString())
+        var qandA = intent.extras
+        var answers = qandA.getStringArray("answers")
+        var correctAnswer =  qandA.getString("correctAnswers")
 
-        if(answer1.isActivated){
-            selectedAnswer = answer1;
-        }
-        if(answer2.isActivated){
-            selectedAnswer = answer2;
-        }
-        if(answer3.isActivated){
-            selectedAnswer = answer3;
-        }
-        if(answer4.isActivated){
-            selectedAnswer = answer4;
-        }
+        Log.i("Question Page", qandA.toString())
+        var questions = qandA.getString("questions")
+        question.text = questions
 
-        if(selectedAnswer != null){
+
+        if(answers.size == 4) {
+            answer1.text = answers[0]
+            answer2.text = answers[1]
+            answer3.text = answers[2]
+            answer4.text = answers[3]
+        }
+        submitButton.visibility = View.INVISIBLE
+        radioGroup.setOnCheckedChangeListener(RadioGroup.OnCheckedChangeListener { radioGroup, i ->
             submitButton.visibility = View.VISIBLE
+            if(answer1.isChecked){
+                Log.i("QuestionsPage", "ANSWER ONE SELECTED")
+                selectedAnswer = answers[0].toString()
+                Log.i("QuestionsPage", selectedAnswer.toString())
+
+            }
+            if(answer2.isChecked){
+                selectedAnswer = answers[1].toString()
+
+            }
+            if(answer3.isChecked){
+                selectedAnswer = answers[2].toString()
+
+            }
+            if(answer4.isChecked){
+                selectedAnswer = answers[3].toString()
+
+            }
+        })
+
+
             submitButton.setOnClickListener({ view ->
-                intent.putExtra("selectedAnswer", selectedAnswer.text);
-                intent.putExtra("correctAnswers", correctAnswer);
+
+                    answerIntent.putExtra("selectedAnswer", selectedAnswer)
+
+                answerIntent.putExtra("correctAnswers", correctAnswer)
                 startActivity(answerIntent)
             })
 
-        }else{
-            submitButton.visibility = View.INVISIBLE
-        }
 
 
 

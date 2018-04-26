@@ -15,17 +15,17 @@ class answerView : AppCompatActivity() {
         setContentView(R.layout.activity_answer_view)
         var questionsLeft: Int =  0;
 
-        val finishIntent = Intent(this, TopicOverview::class.java)
+        val finishIntent = Intent(this, MainActivity::class.java)
         val questionIntent = Intent(this, QuestionPage::class.java)
         val nextButton = findViewById(R.id.nextButton) as Button
         val finishButton = findViewById(R.id.finishButton) as Button
         var correctAnswer = findViewById(R.id.correctAnswer) as TextView
         var selectedAnswer = findViewById(R.id.answerChoosen) as TextView
         var correctAnswerCount = findViewById(R.id.correctAnswerCount) as TextView
-        var answers = getIntent().getExtras();
+        var answers = getIntent().extras;
         var numberOfCorrectAnswers = 0;
 
-        correctAnswer.setText(answers.getString("correctAnswer"))
+        correctAnswer.setText(answers.getString("correctAnswers"))
         selectedAnswer.setText(answers.getString("selectedAnswer"))
 
         if(correctAnswer.text.equals(selectedAnswer.text)){
