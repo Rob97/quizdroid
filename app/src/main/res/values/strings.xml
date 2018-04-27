@@ -9,4 +9,7 @@
     <string name="correctAnswerTag">The correct answer is: </string>
     <string name="nextButton">Next</string>
     <string name="finishButton">Finish</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
