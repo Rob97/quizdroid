@@ -18,7 +18,11 @@
         </activity>
         <activity android:name=".TopicOverview" />
         <activity android:name=".QuestionPage" />
-        <activity android:name=".answerView"></activity>
+        <activity android:name=".answerView" />
+        <activity android:name=".OverviewFragment" />
+        <activity android:name=".FragmentHolders" />
+        <activity android:name=".QuestionFragment" />
+        <activity android:name=".AnswerFragment"></activity>
     </application>
 
 </manifest>

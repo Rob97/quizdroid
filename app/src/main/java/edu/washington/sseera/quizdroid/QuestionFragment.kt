@@ -1,100 +1,156 @@
 package edu.washington.sseera.quizdroid
 
+import android.app.Fragment
 import android.content.Context
-import android.net.Uri
-import android.os.Bundle
-import android.support.v4.app.Fragment
-import android.view.LayoutInflater
+import android.content.Intent
+import android.support.v7.app.AppCompatActivity
+
 import android.view.View
 import android.view.ViewGroup
+import android.view.LayoutInflater
+import android.os.Bundle
+import android.support.v7.widget.GridLayoutManager
+import android.support.v7.widget.RecyclerView
+import android.util.Log
+import android.widget.*
+import edu.washington.sseera.quizdroid.QuestionFragment.OnFragmentInteractionListener
 
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
 
-/**
- * A simple [Fragment] subclass.
- * Activities that contain this fragment must implement the
- * [QuestionFragment.OnFragmentInteractionListener] interface
- * to handle interaction events.
- * Use the [QuestionFragment.newInstance] factory method to
- * create an instance of this fragment.
- *
- */
+
 class QuestionFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
-    private var listener: OnFragmentInteractionListener? = null
+
+    companion object {
+
+        fun newInstance(): OverviewFragment {
+            return OverviewFragment()
+        }
+    }
+    val TAG = "OverviewFragment"
+
+    //Initializing callback
+    var mCallback: OnFragmentInteractionListener? = null
+
+    // Container Activity must implement this interface
+    interface OnFragmentInteractionListener {
+        fun onFragmentInteraction(selectedAnswer: String)
+    }
+
+
+    override fun onAttach(context: Context?) {
+        super.onAttach(context)
+        Log.d(TAG, "onAttach")
+        try {
+            mCallback = activity as OnFragmentInteractionListener
+        } catch (e: ClassCastException) {
+            throw ClassCastException(activity.toString() + " must implement OnFragmentInteractionListener")
+        }
+
+
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
+        Log.d(TAG, "onCreate")
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
+    override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_question, container, false)
-    }
+        Log.d(TAG, "onCreateView")
 
-    // TODO: Rename method, update argument and hook method into UI event
-    fun onButtonPressed(uri: Uri) {
-        listener?.onFragmentInteraction(uri)
-    }
+        val submitButton = view.findViewById<Button>(R.id.submitButton)
+        val question = view.findViewById<TextView>(R.id.question)
+        val answer1 = view.findViewById<RadioButton>(R.id.answer1)
+        val answer2 = view.findViewById<RadioButton>(R.id.answer2)
+        val answer3 = view.findViewById<RadioButton>(R.id.answer3)
+        val answer4 = view.findViewById<RadioButton>(R.id.answer4)
+        val radioGroup = view.findViewById<RadioGroup>(R.id.answers)
+        var selectedAnswer: CharSequence? = null
 
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-        if (context is OnFragmentInteractionListener) {
-            listener = context
-        } else {
-            throw RuntimeException(context.toString() + " must implement OnFragmentInteractionListener")
+
+        if (getArguments() != null) {
+
+            var answers = getArguments().getStringArray("Answers");
+            question.setText(getArguments().getString("Question"));
+            answer1.setText(answers[0])
+            answer2.setText(answers[1])
+            answer3.setText(answers[2])
+            answer4.setText(answers[3])
+
         }
+
+        radioGroup.setOnCheckedChangeListener(RadioGroup.OnCheckedChangeListener { radioGroup, i ->
+            submitButton.visibility = View.VISIBLE
+            if(answer1.isChecked){
+                Log.i("QuestionsPage", "ANSWER ONE SELECTED")
+                selectedAnswer = answer1.toString()
+                Log.i("QuestionsPage", selectedAnswer.toString())
+
+            }
+            if(answer2.isChecked){
+                selectedAnswer = answer2.toString()
+
+            }
+            if(answer3.isChecked){
+                selectedAnswer = answer3.toString()
+
+            }
+            if(answer4.isChecked){
+                selectedAnswer = answer4.toString()
+
+            }
+            var mCallback: OnFragmentInteractionListener? = null
+            if (mCallback != null && selectedAnswer != null) {
+               mCallback.onFragmentInteraction(selectedAnswer.toString());
+                //  QuestionFragment.OnFragmentInteractionListener?.let{
+            }
+        })
+
+        submitButton.setOnClickListener({ view ->
+            activity.onBackPressed()
+        })
+
+        return inflater!!.inflate(R.layout.activity_question_fragment, container, false)
+    }
+
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+        Log.d(TAG, "onActivityCreated")
+    }
+
+    override fun onStart() {
+        Log.d(TAG, "onStart")
+        super.onStart()
+    }
+
+    override fun onResume() {
+        Log.d(TAG, "onResume")
+        super.onResume()
+    }
+
+    override fun onPause() {
+        Log.d(TAG, "onPause")
+        super.onPause()
+    }
+
+    override fun onStop() {
+        Log.d(TAG, "onStop")
+        super.onStop()
+    }
+
+    override fun onDestroy() {
+        Log.d(TAG, "onDestroy")
+        super.onDestroy()
+    }
+
+    override fun onDestroyView() {
+        Log.d(TAG, "onDestroyView")
+        super.onDestroyView()
     }
 
     override fun onDetach() {
+        Log.d(TAG, "onDetach")
         super.onDetach()
-        listener = null
     }
 
-    /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     *
-     *
-     * See the Android Training lesson [Communicating with Other Fragments]
-     * (http://developer.android.com/training/basics/fragments/communicating.html)
-     * for more information.
-     */
-    interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
-        fun onFragmentInteraction(uri: Uri)
-    }
-
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment QuestionFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-                QuestionFragment().apply {
-                    arguments = Bundle().apply {
-                        putString(ARG_PARAM1, param1)
-                        putString(ARG_PARAM2, param2)
-                    }
-                }
-    }
 }

@@ -10,29 +10,24 @@ import android.content.Intent
 
 class MainActivity : AppCompatActivity() {
   val classes = arrayOf("Math", "Physics", "Marvel Super Heroes")
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+//        if (savedInstanceState == null) {
+//            supportFragmentManager
+//                    .beginTransaction()
+//                    .add(R.id.ConstraintLayout, OverviewFragment.newInstance(), "rageComicList")
+//                    .commit()
+//        }
+
 
         val listView = findViewById<ListView>(R.id.listView)
        // val topicOverviewIntent = Intent(this, TopicOverview::class.java)
-        val intent = Intent(this, TopicOverview::class.java)
+        val intent = Intent(this, FragmentHolders::class.java)
        // val mathQuestionsAndAnswers = arrayListOf(mapOf("question" to "What is one plus one?","answers" to arrayListOf<String>("1","2","3","4"), "correctAnswer" to "4"))
-        val mathQuestions = arrayOf("What is one plus one?")
-        val mathAnswers = arrayOf("1","2","3","4")
-        val mathCorrectAnswers = arrayOf("4")
-        val mathDescription = "Basic Math Questions"
 
-        val physicsQuestions = arrayOf("Does gravity exist?")
-        val physicsAnswers = arrayOf("Yes","No","Maybe","I don't know")
-        val physicsCorrectAnswers = arrayOf("Yes")
-        val physicsDescription = "Basic Physics Questions"
-
-        val marvelQuestions = arrayOf("Is Batman in Iron Man 2?")
-        val marvelAnswers = arrayOf("No","Yes","Maybe","I don't know")
-        val marvelCorrectAnswers = arrayOf("No")
-        val marvelDescription = "Basic Marvel Questions"
 
         val adapter = ArrayAdapter<String>(this,
                 android.R.layout.simple_list_item_1, android.R.id.text1, classes)
@@ -57,10 +52,10 @@ class MainActivity : AppCompatActivity() {
             listView.setOnItemClickListener({ parent, v, position, id ->
 
                 intent.putExtra("topic", listView.getItemAtPosition(position).toString())
-                intent.putExtra("questions", mathQuestions[0]);
-                intent.putExtra("answers", mathAnswers);
-                intent.putExtra("correctAnswers", mathCorrectAnswers[0]);
-                intent.putExtra("description", mathDescription)
+//                intent.putExtra("questions", mathQuestions[0]);
+//                intent.putExtra("answers", mathAnswers);
+//                intent.putExtra("correctAnswers", mathCorrectAnswers[0]);
+//                intent.putExtra("description", mathDescription)
                 startActivity(intent)
 
 
@@ -69,10 +64,10 @@ class MainActivity : AppCompatActivity() {
 
 
                 intent.putExtra("topic", listView.getItemAtPosition(position).toString())
-                intent.putExtra("questions", physicsQuestions[0]);
-                intent.putExtra("answers", physicsAnswers);
-                intent.putExtra("correctAnswers", physicsCorrectAnswers[0]);
-                intent.putExtra("description", physicsDescription)
+//                intent.putExtra("questions", physicsQuestions[0]);
+//                intent.putExtra("answers", physicsAnswers);
+//                intent.putExtra("correctAnswers", physicsCorrectAnswers[0]);
+//                intent.putExtra("description", physicsDescription)
                 startActivity(intent)
 
             }
@@ -80,14 +75,17 @@ class MainActivity : AppCompatActivity() {
 
 
                 intent.putExtra("topic", listView.getItemAtPosition(position).toString())
-                intent.putExtra("questions", marvelQuestions[0]);
-                intent.putExtra("answers", marvelAnswers);
-                intent.putExtra("correctAnswers", marvelCorrectAnswers[0]);
-                intent.putExtra("description", marvelDescription)
+//                intent.putExtra("questions", marvelQuestions[0]);
+//                intent.putExtra("answers", marvelAnswers);
+//                intent.putExtra("correctAnswers", marvelCorrectAnswers[0]);
+//                intent.putExtra("description", marvelDescription)
                 startActivity(intent)
 
             }
         })
 
     }
+
+
+
 }
