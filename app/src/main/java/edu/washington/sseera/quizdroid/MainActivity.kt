@@ -56,6 +56,7 @@ class MainActivity : AppCompatActivity() {
 
             listView.setOnItemClickListener({ parent, v, position, id ->
 
+                
                 intent.putExtra("topic", listView.getItemAtPosition(position).toString())
                 intent.putExtra("questions", mathQuestions[0]);
                 intent.putExtra("answers", mathAnswers);
