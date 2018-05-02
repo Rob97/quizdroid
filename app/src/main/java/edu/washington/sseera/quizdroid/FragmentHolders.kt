@@ -16,9 +16,9 @@ class FragmentHolders : AppCompatActivity() {
 //    isOverviewFragmentLoaded = intent.extras.getBoolean("IsOverviewFragmentLoaded")
 //    isQuestionFragmentLoaded = topicStuff.getBoolean("IsQuestionFragmentLoaded")
 //    isAnswerFragmentLoaded = topicStuff.getBoolean("IsAnswerFragmentLoaded")
-    var isOverviewFragmentLoaded = "".toBoolean()
-    var isQuestionFragmentLoaded = "".toBoolean()
-    var isAnswerFragmentLoaded = "".toBoolean()
+//    var isOverviewFragmentLoaded = "".toBoolean()
+//    var isQuestionFragmentLoaded = "".toBoolean()
+//    var isAnswerFragmentLoaded = "".toBoolean()
 
     val mathQuestions = arrayOf("What is one plus one?", "What is two plus two?", "What is three minus one?")
     val mathAnswers = arrayOf("1","2","3","4")
@@ -57,11 +57,15 @@ class FragmentHolders : AppCompatActivity() {
         Log.i("FragmentHoldersgetInten", intent.extras.toString())
         var topicStuff = intent.extras;
         topic = topicStuff.getString("topic");
-        Log.i("FragmentHolder",topic)
-         isOverviewFragmentLoaded = topicStuff.getBoolean("IsOverviewFragmentLoaded")
-         isQuestionFragmentLoaded = topicStuff.getBoolean("IsQuestionFragmentLoaded")
-         isAnswerFragmentLoaded = topicStuff.getBoolean("IsAnswerFragmentLoaded")
-
+//        Log.i("FragmentHolder",topic)
+//         isOverviewFragmentLoaded = topicStuff.getBoolean("IsOverviewFragmentLoaded")
+//        Log.i("isOverviewFragmentLoad", isOverviewFragmentLoaded.toString())
+//         isQuestionFragmentLoaded = topicStuff.getBoolean("IsQuestionFragmentLoaded")
+//        Log.i("isQFragmentLoaded", isQuestionFragmentLoaded.toString())
+//         isAnswerFragmentLoaded = topicStuff.getBoolean("IsAnswerFragmentLoaded")
+//        Log.i("isAFragmentLoaded", isAnswerFragmentLoaded.toString())
+//        if(isOverviewFragmentLoaded){
+        
         if(topic.equals("Math")){
             Log.i("InMath",topic)
             questions = mathQuestions
@@ -69,7 +73,7 @@ class FragmentHolders : AppCompatActivity() {
             correctAnswers = mathCorrectAnswers
             description = mathDescription
             questionsLeft = mathQuestions.size
-        }else if (topic.equals("Physics")){
+        }else if (topic.equals("Physics")) {
             questions = physicsQuestions
             answers = physicsAnswers
             correctAnswers = physicsCorrectAnswers
@@ -81,25 +85,44 @@ class FragmentHolders : AppCompatActivity() {
             correctAnswers = marvelCorrectAnswers
             description = marvelDescription
             questionsLeft = marvelQuestions.size
+       // }
         }
 
         if(isOverviewFragmentLoaded) {
             showOverviewFragment()
-        }else {
-            while (questionsLeft > 0) {
-                if (isQuestionFragmentLoaded) {
-                    showQuestionFragment()
-                    questionsLeft--
-                }
-                if (isAnswerFragmentLoaded) {
-                    if (selectedAnswer.equals(correctAnswers[arraySpot])) {
-                        numberOfCorrectAnswers++
-                    }
-                    showAnswerFragment()
-                    arraySpot++
-                }
-            }
+         }
+
+        if(isAnswerFragmentLoaded){
+            showAnswerFragment()
+            arraySpot++
         }
+
+        if(isQuestionFragmentLoaded){
+            if(questionsLeft > 0){
+                questionsLeft--
+            }
+            showQuestionFragment()
+        }
+
+
+
+
+// else {
+//            if (questionsLeft > 0) {
+//                if (isQuestionFragmentLoaded) {
+//                    Log.i("In Question If statment",intent.extras.getBoolean("IsQuestionFragmentLoaded").toString() )
+//                    questionsLeft--
+//                    showQuestionFragment()
+//                }
+//                if (isAnswerFragmentLoaded) {
+//                    if (selectedAnswer.equals(correctAnswers[arraySpot])) {
+//                        numberOfCorrectAnswers++
+//                    }
+//                    showAnswerFragment()
+//                    arraySpot++
+//                }
+//            }
+//        }
 
 
 

@@ -70,7 +70,7 @@ Log.d(TAG, "onAttach")
             intent.putExtra("IsOverviewFragmentLoaded", false)
 
             startActivity(intent)
-            activity?.onBackPressed()
+//            activity?.onBackPressed()
         })
 
 

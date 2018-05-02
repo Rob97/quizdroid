@@ -59,9 +59,9 @@ class MainActivity : AppCompatActivity() {
 //                intent.putExtra("description", mathDescription)
 
 
-                intent.putExtra("IsQuestionFragmentLoaded", false)
+                intent.putExtra("IsQuestionFragmentLoaded", true)
                 intent.putExtra("IsAnswerFragmentLoaded", false)
-                intent.putExtra("IsOverviewFragmentLoaded", true)
+                intent.putExtra("IsOverviewFragmentLoaded", false)
 
                 startActivity(intent)
             })
