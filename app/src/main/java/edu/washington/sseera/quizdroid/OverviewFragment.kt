@@ -68,6 +68,8 @@ Log.d(TAG, "onAttach")
             intent.putExtra("IsQuestionFragmentLoaded", true)
             intent.putExtra("IsAnswerFragmentLoaded", false)
             intent.putExtra("IsOverviewFragmentLoaded", false)
+
+            startActivity(intent)
             activity?.onBackPressed()
         })
 

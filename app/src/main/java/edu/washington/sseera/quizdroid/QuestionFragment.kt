@@ -101,11 +101,11 @@ class QuestionFragment : Fragment() {
                 selectedAnswer = answer4.text.toString()
 
             }
-            var mCallback: OnFragmentInteractionListener? = null
-            if (mCallback != null && selectedAnswer != null) {
-               mCallback.onFragmentInteraction(selectedAnswer.toString());
-                //  QuestionFragment.OnFragmentInteractionListener?.let{
-            }
+//            var mCallback: OnFragmentInteractionListener? = null
+//            if (mCallback != null && selectedAnswer != null) {
+//               mCallback.onFragmentInteraction(selectedAnswer.toString());
+//                  QuestionFragment.OnFragmentInteractionListener?.let{
+//            }
         })
 
         submitButton?.setOnClickListener({ view ->
@@ -114,7 +114,7 @@ class QuestionFragment : Fragment() {
             intent.putExtra("IsQuestionFragmentLoaded", false)
             intent.putExtra("IsAnswerFragmentLoaded", true)
             intent.putExtra("IsOverviewFragmentLoaded", false)
-            activity?.onBackPressed()
+
             activity?.onBackPressed()
         })
 

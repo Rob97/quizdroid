@@ -10,10 +10,15 @@ import android.util.Log
 
 
 class FragmentHolders : AppCompatActivity() {
-
-    var isOverviewFragmentLoaded = true
-    var isQuestionFragmentLoaded = false
-    var isAnswerFragmentLoaded = false
+//    var topicStuff = intent.extras;
+//    topic = topicStuff.getString("topic");
+//    Log.i("FragmentHOlder",topic)
+//    isOverviewFragmentLoaded = intent.extras.getBoolean("IsOverviewFragmentLoaded")
+//    isQuestionFragmentLoaded = topicStuff.getBoolean("IsQuestionFragmentLoaded")
+//    isAnswerFragmentLoaded = topicStuff.getBoolean("IsAnswerFragmentLoaded")
+    var isOverviewFragmentLoaded = "".toBoolean()
+    var isQuestionFragmentLoaded = "".toBoolean()
+    var isAnswerFragmentLoaded = "".toBoolean()
 
     val mathQuestions = arrayOf("What is one plus one?", "What is two plus two?", "What is three minus one?")
     val mathAnswers = arrayOf("1","2","3","4")
@@ -52,10 +57,10 @@ class FragmentHolders : AppCompatActivity() {
         Log.i("FragmentHoldersgetInten", intent.extras.toString())
         var topicStuff = intent.extras;
         topic = topicStuff.getString("topic");
-        Log.i("FragmentHOlder",topic)
-//         isOverviewFragmentLoaded = topicStuff.getBoolean("IsOverviewFragmentLoaded")
-//         isQuestionFragmentLoaded = topicStuff.getBoolean("IsQuestionFragmentLoaded")
-//         isAnswerFragmentLoaded = topicStuff.getBoolean("IsAnswerFragmentLoaded")
+        Log.i("FragmentHolder",topic)
+         isOverviewFragmentLoaded = topicStuff.getBoolean("IsOverviewFragmentLoaded")
+         isQuestionFragmentLoaded = topicStuff.getBoolean("IsQuestionFragmentLoaded")
+         isAnswerFragmentLoaded = topicStuff.getBoolean("IsAnswerFragmentLoaded")
 
         if(topic.equals("Math")){
             Log.i("InMath",topic)
@@ -81,7 +86,6 @@ class FragmentHolders : AppCompatActivity() {
         if(isOverviewFragmentLoaded) {
             showOverviewFragment()
         }else {
-
             while (questionsLeft > 0) {
                 if (isQuestionFragmentLoaded) {
                     showQuestionFragment()
