@@ -1,6 +1,7 @@
 package edu.washington.sseera.quizdroid
 
-import android.app.Fragment
+//import android.app.Fragment
+import android.support.v4.app.Fragment
 import android.content.Context
 import android.content.Intent
 import android.support.v7.app.AppCompatActivity
@@ -40,28 +41,39 @@ Log.d(TAG, "onAttach")
         super.onCreate(savedInstanceState)
         Log.d(TAG, "onCreate")
 
+
     }
 
-    override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?,
-                              savedInstanceState: Bundle?): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         Log.d(TAG, "onCreateView")
-        val startButton = view.findViewById(R.id.beginButton) as Button
-        val topicDescription = view.findViewById(R.id.description) as TextView
-        val topicName = view.findViewById(R.id.topic) as EditText
-        val numberOfQuestions = view.findViewById(R.id.numberOfQuestions) as TextView
+        val view1 = inflater?.inflate(R.layout.activity_overview_fragment, container, false) as View
+
+
+        val startButton = view1.findViewById<Button>(R.id.beginButton) as Button
+        val topicDescription = view1.findViewById(R.id.description) as TextView
+        val topicName = view1.findViewById(R.id.topic) as EditText
+        val numberOfQuestions = view1.findViewById(R.id.numberOfQuestions) as TextView
         if (getArguments() != null) {
-            var description = getArguments().getString("Description");
+            var description = getArguments()?.getString("Description");
+            Log.i("RECIVED DESCPRITION", description
+            )
             topicDescription.setText(description);
-            topicName.setText(getArguments().getString("Topic"))
-            numberOfQuestions.setText(getArguments().getString("QuestionCount"))
+            Log.i("Tag info Description", topicDescription.text.toString())
+            topicName.setText(getArguments()?.getString("Topic"))
+            numberOfQuestions.setText(getArguments()?.getString("QuestionCount"))
         }
         startButton.setOnClickListener({ view ->
-            activity.onBackPressed()
+            val intent = Intent(activity, FragmentHolders::class.java)
+
+            intent.putExtra("IsQuestionFragmentLoaded", true)
+            intent.putExtra("IsAnswerFragmentLoaded", false)
+            intent.putExtra("IsOverviewFragmentLoaded", false)
+            activity?.onBackPressed()
         })
 
 
 
-        return inflater!!.inflate(R.layout.activity_overview_fragment, container, false)
+        return inflater?.inflate(R.layout.activity_overview_fragment, container, false)
 //        val activity = activity
 //        val recyclerView = view.findViewById<RecyclerView>(R.id.recycler_view) as RecyclerView
 //        recyclerView.layoutManager = GridLayoutManager(activity, 2)
@@ -70,10 +82,10 @@ Log.d(TAG, "onAttach")
     }
 
     fun replaceFragment(someFragment: Fragment) {
-        val transaction = fragmentManager.beginTransaction()
-        transaction.replace(R.id.fragment_holder, someFragment)
-        transaction.addToBackStack(null)
-        transaction.commit()
+        val transaction = fragmentManager?.beginTransaction()
+        transaction?.replace(R.id.fragment_holder, someFragment)
+        transaction?.addToBackStack(null)
+        transaction?.commit()
     }
 
 
@@ -90,6 +102,32 @@ Log.d(TAG, "onAttach")
     override fun onResume() {
         Log.d(TAG, "onResume")
         super.onResume()
+//        val view1 = inflater?.inflate(R.layout.activity_overview_fragment, container, false) as View
+
+
+        val startButton = view!!.findViewById<Button>(R.id.beginButton) as Button
+        val topicDescription = view!!.findViewById(R.id.description) as TextView
+        val topicName = view!!.findViewById(R.id.topic) as EditText
+        val numberOfQuestions = view!!.findViewById(R.id.numberOfQuestions) as TextView
+        if (getArguments() != null) {
+            var description = getArguments()?.getString("Description");
+            Log.i("RECIVED DESCPRITION", description
+            )
+            topicDescription.setText(description);
+            Log.i("Tag info Description", topicDescription.text.toString())
+            topicName.setText(getArguments()?.getString("Topic"))
+            numberOfQuestions.setText(getArguments()?.getString("QuestionCount"))
+        }
+
+        startButton.setOnClickListener({ view ->
+            val intent = Intent(activity, FragmentHolders::class.java)
+
+            intent.putExtra("IsQuestionFragmentLoaded", true)
+            intent.putExtra("IsAnswerFragmentLoaded", false)
+            intent.putExtra("IsOverviewFragmentLoaded", false)
+            activity?.onBackPressed()
+
+        })
     }
 
     override fun onPause() {

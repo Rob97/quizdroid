@@ -25,7 +25,7 @@
             android:focusable="false"
             android:gravity="center"
             android:inputType="textPersonName"
-            android:text="Name"
+
             android:textAlignment="center" />
 
         <EditText
@@ -47,7 +47,7 @@
             android:layout_alignBaseline="@+id/descriptionTag"
             android:layout_toEndOf="@+id/descriptionTag"
             android:gravity="center"
-            android:text="hi"
+            android:text = "hello"
             android:textSize="20sp" />
 
         <EditText
@@ -68,7 +68,7 @@
             android:layout_alignBaseline="@+id/numberOfQuestionsTag"
             android:layout_toEndOf="@+id/numberOfQuestionsTag"
             android:gravity="center"
-            android:text="@string/numberOfQuestions"
+
             android:textSize="20sp" />
 
         <Button

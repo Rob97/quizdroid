@@ -1,6 +1,8 @@
 package edu.washington.sseera.quizdroid
 
-import android.app.Fragment
+//import android.app.Fragment
+
+import android.support.v4.app.Fragment
 import android.content.Context
 import android.content.Intent
 import android.support.v7.app.AppCompatActivity
@@ -41,40 +43,39 @@ class AnswerFragment : Fragment() {
         Log.d(TAG, "onCreate")
     }
 
-    override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?,
-                              savedInstanceState: Bundle?): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         Log.d(TAG, "onCreateView")
 //        val finishIntent = Intent(this, MainActivity::class.java)
 //        val questionIntent = Intent(this, QuestionPage::class.java)
-        val nextButton = view.findViewById(R.id.nextButton) as Button
-        val finishButton = view.findViewById(R.id.finishButton) as Button
-        var correctAnswerText = view.findViewById(R.id.correctAnswer) as TextView
-        var selectedAnswerText = view.findViewById(R.id.answerChoosen) as TextView
-        var correctAnswerCount = view.findViewById(R.id.correctAnswerCount) as TextView
-        var selectedAnswer = getArguments().getString("SelectedAnswer");
-        var numberOfCorrectAnswers = getArguments().getInt("CorrectAnswersCount");
-        var correctAnswer = getArguments().getString("CorrectAnswer")
-        var questionsLeft = getArguments().getInt("QuestionCount")
-        var questionsCount = getArguments().getInt("QuestionCount")
+        val view1 = inflater?.inflate(R.layout.activity_answer_fragment, container, false) as View
+        val nextButton = view1!!.findViewById(R.id.nextButton) as Button
+        val finishButton = view1!!.findViewById(R.id.finishButton) as Button
+        var correctAnswerText = view1?.findViewById(R.id.correctAnswer) as TextView
+        var selectedAnswerText = view1?.findViewById(R.id.answerChoosen) as TextView
+        var correctAnswerCount = view1?.findViewById(R.id.correctAnswerCount) as TextView
+        var selectedAnswer = getArguments()?.getString("SelectedAnswer");
+        var numberOfCorrectAnswers = getArguments()?.getInt("CorrectAnswersCount");
+        var correctAnswer = getArguments()?.getString("CorrectAnswer")
+        var questionsLeft = getArguments()?.getInt("QuestionLeft")
+        var questionsCount = getArguments()?.getInt("QuestionCount")
 
 
 
         correctAnswerText.setText(correctAnswer)
         selectedAnswerText.setText(selectedAnswer)
-        correctAnswerCount.setText(numberOfCorrectAnswers)
+        correctAnswerCount.setText(numberOfCorrectAnswers.toString())
 
 //        if(correctAnswer.equals(selectedAnswer)){
 //            numberOfCorrectAnswers++;
 //        }
 
-        if(questionsLeft > 0 ){
-
+        if(questionsLeft.toString().equals("0")){
+            nextButton.visibility = View.INVISIBLE
+            finishButton.visibility = View.VISIBLE
+        }else{
             nextButton.visibility = View.VISIBLE
             finishButton.visibility = View.INVISIBLE
 
-        }else{
-            nextButton.visibility = View.INVISIBLE
-            finishButton.visibility = View.VISIBLE
         }
 
         correctAnswerCount.setText("You have ${numberOfCorrectAnswers} out of ${questionsCount} correct")
@@ -87,8 +88,12 @@ class AnswerFragment : Fragment() {
         })
 
         nextButton.setOnClickListener({ view ->
+            val intent = Intent(activity, FragmentHolders::class.java)
 
-                activity.onBackPressed()
+            intent.putExtra("IsQuestionFragmentLoaded", true)
+            intent.putExtra("IsAnswerFragmentLoaded", false)
+            intent.putExtra("IsOverviewFragmentLoaded", false)
+                activity?.onBackPressed()
 
         })
 
@@ -109,6 +114,54 @@ class AnswerFragment : Fragment() {
     override fun onResume() {
         Log.d(TAG, "onResume")
         super.onResume()
+
+        val nextButton = view!!.findViewById(R.id.nextButton) as Button
+        val finishButton = view!!.findViewById(R.id.finishButton) as Button
+        var correctAnswerText = view?.findViewById(R.id.correctAnswer) as TextView
+        var selectedAnswerText = view?.findViewById(R.id.answerChoosen) as TextView
+        var correctAnswerCount = view?.findViewById(R.id.correctAnswerCount) as TextView
+        var selectedAnswer = getArguments()?.getString("SelectedAnswer");
+        var numberOfCorrectAnswers = getArguments()?.getInt("CorrectAnswersCount");
+        var correctAnswer = getArguments()?.getString("CorrectAnswer")
+        var questionsLeft = getArguments()?.getInt("QuestionLeft")
+        var questionsCount = getArguments()?.getInt("QuestionCount")
+
+
+
+        correctAnswerText.setText(correctAnswer)
+        selectedAnswerText.setText(selectedAnswer)
+        correctAnswerCount.setText(numberOfCorrectAnswers.toString())
+
+
+        if(questionsLeft.toString().equals("0")){
+            nextButton.visibility = View.INVISIBLE
+            finishButton.visibility = View.VISIBLE
+        }else{
+            nextButton.visibility = View.VISIBLE
+            finishButton.visibility = View.INVISIBLE
+
+        }
+
+        correctAnswerCount.setText("You have ${numberOfCorrectAnswers} out of ${questionsCount} correct")
+
+        finishButton.setOnClickListener({ view ->
+            val intent = Intent(activity, MainActivity::class.java)
+            startActivity(intent)
+            // startActivity(finishIntent)
+
+        })
+
+        nextButton.setOnClickListener({ view ->
+            val intent = Intent(activity, FragmentHolders::class.java)
+
+            intent.putExtra("IsQuestionFragmentLoaded", true)
+            intent.putExtra("IsAnswerFragmentLoaded", false)
+            intent.putExtra("IsOverviewFragmentLoaded", false)
+            activity?.onBackPressed()
+
+        })
+
+
     }
 
     override fun onPause() {

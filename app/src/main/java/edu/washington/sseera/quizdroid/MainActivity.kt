@@ -50,39 +50,46 @@ class MainActivity : AppCompatActivity() {
 //            }
 
             listView.setOnItemClickListener({ parent, v, position, id ->
-
-                intent.putExtra("topic", listView.getItemAtPosition(position).toString())
+                var value = listView.getItemAtPosition(position).toString()
+                Log.i("Main Activity", value)
+                intent.putExtra("topic",value)
 //                intent.putExtra("questions", mathQuestions[0]);
 //                intent.putExtra("answers", mathAnswers);
 //                intent.putExtra("correctAnswers", mathCorrectAnswers[0]);
 //                intent.putExtra("description", mathDescription)
+
+
+                intent.putExtra("IsQuestionFragmentLoaded", false)
+                intent.putExtra("IsAnswerFragmentLoaded", false)
+                intent.putExtra("IsOverviewFragmentLoaded", true)
+
                 startActivity(intent)
+            })
 
 
+//            if(classes[position].equals("Physics")){
 
-            if(classes[position].equals("Physics")){
 
-
-                intent.putExtra("topic", listView.getItemAtPosition(position).toString())
+                //intent.putExtra("topic", listView.getItemAtPosition(position).toString())
 //                intent.putExtra("questions", physicsQuestions[0]);
 //                intent.putExtra("answers", physicsAnswers);
 //                intent.putExtra("correctAnswers", physicsCorrectAnswers[0]);
 //                intent.putExtra("description", physicsDescription)
-                startActivity(intent)
+              //  startActivity(intent)
 
-            }
-            if(classes[position].equals("Marvel Super Heroes")){
+            //}
+           // if(classes[position].equals("Marvel Super Heroes")){
 
 
-                intent.putExtra("topic", listView.getItemAtPosition(position).toString())
+           //     intent.putExtra("topic", listView.getItemAtPosition(position).toString())
 //                intent.putExtra("questions", marvelQuestions[0]);
 //                intent.putExtra("answers", marvelAnswers);
 //                intent.putExtra("correctAnswers", marvelCorrectAnswers[0]);
 //                intent.putExtra("description", marvelDescription)
-                startActivity(intent)
+             //   startActivity(intent)
 
-            }
-        })
+          //  }
+
 
     }
 
