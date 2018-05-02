@@ -65,7 +65,7 @@ class FragmentHolders : AppCompatActivity() {
 //         isAnswerFragmentLoaded = topicStuff.getBoolean("IsAnswerFragmentLoaded")
 //        Log.i("isAFragmentLoaded", isAnswerFragmentLoaded.toString())
 //        if(isOverviewFragmentLoaded){
-        
+
         if(topic.equals("Math")){
             Log.i("InMath",topic)
             questions = mathQuestions
@@ -88,21 +88,21 @@ class FragmentHolders : AppCompatActivity() {
        // }
         }
 
-        if(isOverviewFragmentLoaded) {
+
             showOverviewFragment()
-         }
 
-        if(isAnswerFragmentLoaded){
-            showAnswerFragment()
-            arraySpot++
-        }
 
-        if(isQuestionFragmentLoaded){
-            if(questionsLeft > 0){
-                questionsLeft--
-            }
-            showQuestionFragment()
-        }
+//        if(isAnswerFragmentLoaded){
+//            showAnswerFragment()
+//            arraySpot++
+//        }
+//
+//        if(isQuestionFragmentLoaded){
+//            if(questionsLeft > 0){
+//                questionsLeft--
+//            }
+//            showQuestionFragment()
+//        }
 
 
 
@@ -148,9 +148,18 @@ class FragmentHolders : AppCompatActivity() {
 //    }
 
     fun showOverviewFragment(){
-        bundle.putString("QuestionCount",questions.size.toString())
+
         bundle.putString("Description", description)
         bundle.putString("Topic", topic)
+        bundle.putStringArray("Questions",questions)
+        bundle.putStringArray("Answers", answers)
+        bundle.putString("Topic", topic)
+        bundle.putInt("CorrectAnswersCount", numberOfCorrectAnswers )
+        bundle.putInt("QuestionsLeft", questionsLeft)
+        bundle.putString("SelectedAnswer", selectedAnswer)
+        bundle.putStringArray("CorrectAnswers", correctAnswers)
+        bundle.putInt("ArraySpot",arraySpot)
+
         Log.i("PrintBundle", bundle.toString())
         val transaction = supportFragmentManager.beginTransaction()
         val fragment = OverviewFragment()
@@ -162,9 +171,9 @@ class FragmentHolders : AppCompatActivity() {
     }
 
     fun showQuestionFragment(){
-        bundle.putString("Question",questions[arraySpot])
-        bundle.putStringArray("Answers", answers)
-        bundle.putString("Topic", topic)
+//        bundle.putString("Question",questions[arraySpot])
+//        bundle.putStringArray("Answers", answers)
+//        bundle.putString("Topic", topic)
         val transaction = supportFragmentManager.beginTransaction()
         val fragment = QuestionFragment()
         fragment.arguments = bundle

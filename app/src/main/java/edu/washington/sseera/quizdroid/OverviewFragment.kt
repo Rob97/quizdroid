@@ -1,6 +1,11 @@
 package edu.washington.sseera.quizdroid
 
-//import android.app.Fragment
+
+
+
+import kotlinx.android.synthetic.main.activity_question_page.*
+
+
 import android.support.v4.app.Fragment
 import android.content.Context
 import android.content.Intent
@@ -27,10 +32,24 @@ class OverviewFragment : Fragment() {
             return OverviewFragment()
         }
     }
-val TAG = "OverviewFragment"
+    val TAG = "OverviewFragment"
+
+
+    val bundle = Bundle() as Bundle;
+    var topic = ""
+    var questions = arrayOf("")
+    var answers = arrayOf("")
+    var correctAnswers =arrayOf("")
+    var description = ""
+    var questionsLeft = questions.size
+    var arraySpot = 0
+    var selectedAnswer = ""
+    var numberOfCorrectAnswers = 0
+    var questionCount = 1
+
     override fun onAttach(context: Context?) {
         super.onAttach(context)
-Log.d(TAG, "onAttach")
+    Log.d(TAG, "onAttach")
 //        val startButton = findViewById(R.id.beginButton) as Button
 //        val topicDescription = findViewById(R.id.description) as TextView
 //        val topicName = findViewById(R.id.topic) as EditText
@@ -54,22 +73,58 @@ Log.d(TAG, "onAttach")
         val topicName = view1.findViewById(R.id.topic) as EditText
         val numberOfQuestions = view1.findViewById(R.id.numberOfQuestions) as TextView
         if (getArguments() != null) {
-            var description = getArguments()?.getString("Description");
-            Log.i("RECIVED DESCPRITION", description
-            )
+
+             topic = getArguments()!!.getString("Topic")
+             questions = getArguments()!!.getStringArray("Questions")
+             answers = getArguments()!!.getStringArray("Answers")
+             correctAnswers = getArguments()!!.getStringArray("CorrectAnswers")
+             description = getArguments()!!.getString("Description");
+             questionsLeft = questions.size
+             arraySpot = 0
+             selectedAnswer = getArguments()!!.getString("SelectedAnswer");
+             numberOfCorrectAnswers = getArguments()!!.getInt("CorrectAnswersCount");
+             questionCount = questions.size
+
+
+
+
+
+
+
             topicDescription.setText(description);
             Log.i("Tag info Description", topicDescription.text.toString())
             topicName.setText(getArguments()?.getString("Topic"))
-            numberOfQuestions.setText(getArguments()?.getString("QuestionCount"))
+            numberOfQuestions.setText(questionCount.toString())
         }
         startButton.setOnClickListener({ view ->
-            val intent = Intent(activity, FragmentHolders::class.java)
 
-            intent.putExtra("IsQuestionFragmentLoaded", true)
-            intent.putExtra("IsAnswerFragmentLoaded", false)
-            intent.putExtra("IsOverviewFragmentLoaded", false)
 
-            startActivity(intent)
+            bundle.putString("Description", description)
+            bundle.putString("Topic", topic)
+            bundle.putStringArray("Questions",questions)
+            bundle.putStringArray("Answers", answers)
+            bundle.putString("Topic", topic)
+            bundle.putInt("CorrectAnswersCount", numberOfCorrectAnswers )
+            bundle.putInt("QuestionsLeft", questionsLeft)
+            bundle.putString("SelectedAnswer", selectedAnswer)
+            bundle.putStringArray("CorrectAnswers", correctAnswers)
+            bundle.putInt("ArraySpot",arraySpot)
+
+
+            val transaction = fragmentManager!!.beginTransaction()
+            val fragment = QuestionFragment()
+            fragment.arguments = bundle
+            transaction.replace(R.id.fragment_holder, fragment)
+            transaction.addToBackStack(null)
+            transaction.commit()
+
+//            val intent = Intent(activity, FragmentHolders::class.java)
+//
+//            intent.putExtra("IsQuestionFragmentLoaded", true)
+//            intent.putExtra("IsAnswerFragmentLoaded", false)
+//            intent.putExtra("IsOverviewFragmentLoaded", false)
+//
+//            startActivity(intent)
 //            activity?.onBackPressed()
         })
 
@@ -104,30 +159,62 @@ Log.d(TAG, "onAttach")
     override fun onResume() {
         Log.d(TAG, "onResume")
         super.onResume()
-//        val view1 = inflater?.inflate(R.layout.activity_overview_fragment, container, false) as View
-
 
         val startButton = view!!.findViewById<Button>(R.id.beginButton) as Button
         val topicDescription = view!!.findViewById(R.id.description) as TextView
         val topicName = view!!.findViewById(R.id.topic) as EditText
         val numberOfQuestions = view!!.findViewById(R.id.numberOfQuestions) as TextView
-        if (getArguments() != null) {
-            var description = getArguments()?.getString("Description");
-            Log.i("RECIVED DESCPRITION", description
-            )
+       if (getArguments() != null) {
+
+           topic = getArguments()!!.getString("Topic")
+           questions = getArguments()!!.getStringArray("Questions")
+           answers = getArguments()!!.getStringArray("Answers")
+           correctAnswers = getArguments()!!.getStringArray("CorrectAnswers")
+           description = getArguments()!!.getString("Description");
+           questionsLeft = questions.size
+           arraySpot = 0
+           selectedAnswer = getArguments()!!.getString("SelectedAnswer");
+           numberOfCorrectAnswers = getArguments()!!.getInt("CorrectAnswersCount");
+           questionCount = questions.size
+
+//           Log.i("RECIVED DESCPRITION", description
+//            )
             topicDescription.setText(description);
-            Log.i("Tag info Description", topicDescription.text.toString())
-            topicName.setText(getArguments()?.getString("Topic"))
-            numberOfQuestions.setText(getArguments()?.getString("QuestionCount"))
+            //Log.i("Tag info Description", topicDescription.text.toString())
+            topicName.setText(topic)
+            numberOfQuestions.setText(questionCount.toString())
         }
 
         startButton.setOnClickListener({ view ->
-            val intent = Intent(activity, FragmentHolders::class.java)
 
-            intent.putExtra("IsQuestionFragmentLoaded", true)
-            intent.putExtra("IsAnswerFragmentLoaded", false)
-            intent.putExtra("IsOverviewFragmentLoaded", false)
-            activity?.onBackPressed()
+
+            bundle.putString("Description", description)
+            bundle.putString("Topic", topic)
+            bundle.putStringArray("Questions",questions)
+            bundle.putStringArray("Answers", answers)
+            bundle.putString("Topic", topic)
+            bundle.putInt("CorrectAnswersCount", numberOfCorrectAnswers )
+            Log.i("QuestionLeft OFrag", questionsLeft.toString())
+            bundle.putInt("QuestionsLeft", questionsLeft)
+            bundle.putString("SelectedAnswer", selectedAnswer)
+            bundle.putStringArray("CorrectAnswers", correctAnswers)
+            bundle.putInt("ArraySpot",arraySpot)
+
+
+            val transaction = fragmentManager!!.beginTransaction()
+            val fragment = QuestionFragment()
+            fragment.arguments = bundle
+            transaction.replace(R.id.fragment_holder, fragment)
+            transaction.addToBackStack(null)
+            transaction.commit()
+
+
+//            val intent = Intent(activity, FragmentHolders::class.java)
+//
+//            intent.putExtra("IsQuestionFragmentLoaded", true)
+//            intent.putExtra("IsAnswerFragmentLoaded", false)
+//            intent.putExtra("IsOverviewFragmentLoaded", false)
+//            activity?.onBackPressed()
 
         })
     }

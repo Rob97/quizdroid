@@ -29,8 +29,21 @@ class QuestionFragment : Fragment() {
     }
     val TAG = "OverviewFragment"
 
+
+    val bundle = Bundle() as Bundle;
+    var topic = ""
+    var questions = arrayOf("")
+    var answers = arrayOf("")
+    var correctAnswers =arrayOf("")
+    var description = ""
+    var questionsLeft = questions.size
+    var arraySpot = 0
+    var selectedAnswer = ""
+    var numberOfCorrectAnswers = 0
+    var questionCount = 1
+
     //Initializing callback
-    var mCallback: OnFragmentInteractionListener? = null
+//    var mCallback: OnFragmentInteractionListener? = null
 
     // Container Activity must implement this interface
     interface OnFragmentInteractionListener {
@@ -41,11 +54,11 @@ class QuestionFragment : Fragment() {
     override fun onAttach(context: Context?) {
         super.onAttach(context)
         Log.d(TAG, "onAttach")
-        try {
-            mCallback = activity as OnFragmentInteractionListener
-        } catch (e: ClassCastException) {
-            throw ClassCastException(activity.toString() + " must implement OnFragmentInteractionListener")
-        }
+//        try {
+//            mCallback = activity as OnFragmentInteractionListener
+//        } catch (e: ClassCastException) {
+//            throw ClassCastException(activity.toString() + " must implement OnFragmentInteractionListener")
+//        }
 
 
     }
@@ -65,18 +78,29 @@ class QuestionFragment : Fragment() {
         val answer3 = view1?.findViewById<RadioButton>(R.id.answer3)
         val answer4 = view1?.findViewById<RadioButton>(R.id.answer4)
         val radioGroup = view1?.findViewById<RadioGroup>(R.id.answers)
-        var selectedAnswer: CharSequence? = null
+
 
         if (getArguments() != null) {
 
-            var answers = getArguments()!!.getStringArray("Answers");
+            answers = getArguments()!!.getStringArray("Answers");
             Log.i("QuestionsPage", answers[0])
-            question?.setText(getArguments()?.getString("Question"));
+            questions = getArguments()!!.getStringArray("Questions")
+            arraySpot = getArguments()!!.getInt("ArraySpot")
+            question?.setText(questions[arraySpot]);
             answer1?.setText(answers[0])
             Log.i("Answer1", answer1.text.toString())
             answer2?.setText(answers[1])
             answer3?.setText(answers[2])
             answer4?.setText(answers[3])
+
+
+            topic = getArguments()!!.getString("Topic")
+            correctAnswers = getArguments()!!.getStringArray("CorrectAnswers")
+            description = getArguments()!!.getString("Description");
+            questionsLeft = getArguments()!!.getInt("QuestionsLeft")
+
+            numberOfCorrectAnswers = getArguments()!!.getInt("CorrectAnswersCount");
+            questionCount = questions.size
 
         }
 
@@ -109,13 +133,25 @@ class QuestionFragment : Fragment() {
         })
 
         submitButton?.setOnClickListener({ view ->
-            val intent = Intent(activity, FragmentHolders::class.java)
-            intent.putExtra("SelectedAnswer", selectedAnswer);
-            intent.putExtra("IsQuestionFragmentLoaded", false)
-            intent.putExtra("IsAnswerFragmentLoaded", true)
-            intent.putExtra("IsOverviewFragmentLoaded", false)
 
-            activity?.onBackPressed()
+            bundle.putString("Description", description)
+            bundle.putString("Topic", topic)
+            bundle.putStringArray("Questions",questions)
+            bundle.putStringArray("Answers", answers)
+            bundle.putString("Topic", topic)
+            bundle.putInt("CorrectAnswersCount", numberOfCorrectAnswers )
+            bundle.putInt("QuestionsLeft", questionsLeft)
+            bundle.putString("SelectedAnswer", selectedAnswer)
+            bundle.putStringArray("CorrectAnswers", correctAnswers)
+            bundle.putInt("ArraySpot",arraySpot)
+
+
+            val transaction = fragmentManager!!.beginTransaction()
+            val fragment = QuestionFragment()
+            fragment.arguments = bundle
+            transaction.replace(R.id.fragment_holder, fragment)
+            transaction.addToBackStack(null)
+            transaction.commit()
         })
 
         return inflater!!.inflate(R.layout.activity_question_fragment, container, false)
@@ -147,12 +183,20 @@ class QuestionFragment : Fragment() {
 
         if (getArguments() != null) {
 
-            var answers = getArguments()?.getStringArray("Answers");
-            question?.setText(getArguments()?.getString("Question"));
+            answers = getArguments()!!.getStringArray("Answers");
+            question?.setText(questions[arraySpot]);
             answer1?.setText(answers!![0])
             answer2?.setText(answers!![1])
             answer3?.setText(answers!![2])
             answer4?.setText(answers!![3])
+
+
+            topic = getArguments()!!.getString("Topic")
+            correctAnswers = getArguments()!!.getStringArray("CorrectAnswers")
+            description = getArguments()!!.getString("Description");
+            questionsLeft = getArguments()!!.getInt("QuestionsLeft")
+            numberOfCorrectAnswers = getArguments()!!.getInt("CorrectAnswersCount");
+            questionCount = questions.size
 
         }
         submitButton!!.visibility = View.INVISIBLE
@@ -160,38 +204,62 @@ class QuestionFragment : Fragment() {
             submitButton!!.visibility = View.VISIBLE
             if(answer1!!.isChecked){
                 Log.i("QuestionsPage", "ANSWER ONE SELECTED")
-                selectedAnswer = answer1.toString()
+                selectedAnswer = answer1.text.toString()
                 Log.i("QuestionsPage", selectedAnswer.toString())
 
             }
             if(answer2!!.isChecked){
-                selectedAnswer = answer2.toString()
+                selectedAnswer = answer2.text.toString()
 
             }
             if(answer3!!.isChecked){
-                selectedAnswer = answer3.toString()
+                selectedAnswer = answer3.text.toString()
 
             }
             if(answer4!!.isChecked){
-                selectedAnswer = answer4.toString()
+                selectedAnswer = answer4.text.toString()
 
             }
 
         })
 
+
         submitButton?.setOnClickListener({ view ->
+
+
+            bundle.putString("Description", description)
+            bundle.putString("Topic", topic)
+            bundle.putStringArray("Questions",questions)
+            bundle.putStringArray("Answers", answers)
+            bundle.putString("Topic", topic)
+            bundle.putInt("CorrectAnswersCount", numberOfCorrectAnswers )
+            bundle.putInt("QuestionsLeft", questionsLeft)
+            Log.i("Questions Left, QFrag" ,questionsLeft.toString())
+            bundle.putString("SelectedAnswer", selectedAnswer.toString())
+            bundle.putStringArray("CorrectAnswers", correctAnswers)
+            bundle.putInt("ArraySpot",arraySpot)
+
+
+            val transaction = fragmentManager!!.beginTransaction()
+            val fragment = AnswerFragment()
+            fragment.arguments = bundle
+            transaction.replace(R.id.fragment_holder, fragment)
+            transaction.addToBackStack(null)
+            transaction.commit()
+
+
 
 //            var mCallback: OnFragmentInteractionListener? = null
 //            if (mCallback != null && selectedAnswer != null) {
 //                mCallback.onFragmentInteraction(selectedAnswer.toString());
                 //  QuestionFragment.OnFragmentInteractionListener?.let{
 //            }
-            val intent = Intent(activity, FragmentHolders::class.java)
-            intent.putExtra("SelectedAnswer", selectedAnswer);
-            intent.putExtra("IsQuestionFragmentLoaded", false)
-            intent.putExtra("IsAnswerFragmentLoaded", true)
-            intent.putExtra("IsOverviewFragmentLoaded", false)
-            activity?.onBackPressed()
+//            val intent = Intent(activity, FragmentHolders::class.java)
+//            intent.putExtra("SelectedAnswer", selectedAnswer);
+//            intent.putExtra("IsQuestionFragmentLoaded", false)
+//            intent.putExtra("IsAnswerFragmentLoaded", true)
+//            intent.putExtra("IsOverviewFragmentLoaded", false)
+//            activity?.onBackPressed()
         })
 
     }

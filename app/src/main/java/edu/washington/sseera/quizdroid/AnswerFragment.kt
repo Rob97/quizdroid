@@ -29,6 +29,22 @@ class AnswerFragment : Fragment() {
         }
     }
     val TAG = "OverviewFragment"
+
+    val bundle = Bundle() as Bundle;
+    var topic = ""
+    var questions = arrayOf("")
+    var answers = arrayOf("")
+    var correctAnswers =arrayOf("")
+    var description = ""
+    var questionsLeft = 0
+    var arraySpot = 0
+    var selectedAnswer = ""
+    var numberOfCorrectAnswers = 0
+    var questionCount = 1
+
+
+
+
     override fun onAttach(context: Context?) {
         super.onAttach(context)
         Log.d(TAG, "onAttach")
@@ -53,32 +69,44 @@ class AnswerFragment : Fragment() {
         var correctAnswerText = view1?.findViewById(R.id.correctAnswer) as TextView
         var selectedAnswerText = view1?.findViewById(R.id.answerChoosen) as TextView
         var correctAnswerCount = view1?.findViewById(R.id.correctAnswerCount) as TextView
-        var selectedAnswer = getArguments()?.getString("SelectedAnswer");
-        var numberOfCorrectAnswers = getArguments()?.getInt("CorrectAnswersCount");
-        var correctAnswer = getArguments()?.getString("CorrectAnswer")
-        var questionsLeft = getArguments()?.getInt("QuestionLeft")
-        var questionsCount = getArguments()?.getInt("QuestionCount")
 
 
 
-        correctAnswerText.setText(correctAnswer)
+
+        topic = getArguments()!!.getString("Topic")
+        questions = getArguments()!!.getStringArray("Questions")
+        answers = getArguments()!!.getStringArray("Answers")
+        correctAnswers = getArguments()!!.getStringArray("CorrectAnswers")
+        description = getArguments()!!.getString("Description");
+        questionsLeft = getArguments()!!.getInt("QuestionsLeft")
+
+        arraySpot = getArguments()!!.getInt("ArraySpot")
+        selectedAnswer = getArguments()!!.getString("SelectedAnswer");
+        numberOfCorrectAnswers = getArguments()!!.getInt("CorrectAnswersCount");
+        questionCount = questions.size
+
+        if(selectedAnswer.equals(correctAnswers[arraySpot])){
+            numberOfCorrectAnswers++
+        }
+
+        //Setting the Texts
+        correctAnswerText.setText(correctAnswers[arraySpot])
         selectedAnswerText.setText(selectedAnswer)
         correctAnswerCount.setText(numberOfCorrectAnswers.toString())
 
-//        if(correctAnswer.equals(selectedAnswer)){
-//            numberOfCorrectAnswers++;
-//        }
 
-        if(questionsLeft.toString().equals("0")){
-            nextButton.visibility = View.INVISIBLE
-            finishButton.visibility = View.VISIBLE
-        }else{
+        Log.i("Questions Left A Frag", getArguments()!!.getInt("QuestionsLeft").toString())
+
+        if(questionsLeft > 0){
             nextButton.visibility = View.VISIBLE
             finishButton.visibility = View.INVISIBLE
+        }else{
+            nextButton.visibility = View.INVISIBLE
+            finishButton.visibility = View.VISIBLE
 
         }
 
-        correctAnswerCount.setText("You have ${numberOfCorrectAnswers} out of ${questionsCount} correct")
+        correctAnswerCount.setText("You have ${numberOfCorrectAnswers} out of ${questions.size} correct")
 
         finishButton.setOnClickListener({ view ->
             val intent = Intent(activity, MainActivity::class.java)
@@ -88,12 +116,26 @@ class AnswerFragment : Fragment() {
         })
 
         nextButton.setOnClickListener({ view ->
-            val intent = Intent(activity, FragmentHolders::class.java)
+            arraySpot++
+            bundle.putString("Description", description)
+            bundle.putString("Topic", topic)
+            bundle.putStringArray("Questions",questions)
+            bundle.putStringArray("Answers", answers)
+            bundle.putString("Topic", topic)
+            bundle.putInt("CorrectAnswersCount", numberOfCorrectAnswers )
+            bundle.putInt("QuestionsLeft", questionsLeft)
+            bundle.putString("SelectedAnswer", selectedAnswer)
+            bundle.putStringArray("CorrectAnswers", correctAnswers)
+            bundle.putInt("ArraySpot",arraySpot)
 
-            intent.putExtra("IsQuestionFragmentLoaded", true)
-            intent.putExtra("IsAnswerFragmentLoaded", false)
-            intent.putExtra("IsOverviewFragmentLoaded", false)
-                activity?.onBackPressed()
+
+            val transaction = fragmentManager!!.beginTransaction()
+            val fragment = QuestionFragment()
+            fragment.arguments = bundle
+            transaction.replace(R.id.fragment_holder, fragment)
+            transaction.addToBackStack(null)
+            transaction.commit()
+
 
         })
 
@@ -120,29 +162,37 @@ class AnswerFragment : Fragment() {
         var correctAnswerText = view?.findViewById(R.id.correctAnswer) as TextView
         var selectedAnswerText = view?.findViewById(R.id.answerChoosen) as TextView
         var correctAnswerCount = view?.findViewById(R.id.correctAnswerCount) as TextView
-        var selectedAnswer = getArguments()?.getString("SelectedAnswer");
-        var numberOfCorrectAnswers = getArguments()?.getInt("CorrectAnswersCount");
-        var correctAnswer = getArguments()?.getString("CorrectAnswer")
-        var questionsLeft = getArguments()?.getInt("QuestionLeft")
-        var questionsCount = getArguments()?.getInt("QuestionCount")
 
 
+        topic = getArguments()!!.getString("Topic")
+        questions = getArguments()!!.getStringArray("Questions")
+        answers = getArguments()!!.getStringArray("Answers")
+        correctAnswers = getArguments()!!.getStringArray("CorrectAnswers")
+        description = getArguments()!!.getString("Description");
+        questionsLeft = getArguments()!!.getInt("QuestionsLeft")
+        arraySpot = getArguments()!!.getInt("ArraySpot")
+        selectedAnswer = getArguments()!!.getString("SelectedAnswer");
+        numberOfCorrectAnswers = getArguments()!!.getInt("CorrectAnswersCount");
+        questionCount = questions.size
 
-        correctAnswerText.setText(correctAnswer)
+        if(selectedAnswer.equals(correctAnswers[arraySpot])){
+            numberOfCorrectAnswers++
+        }
+
+        correctAnswerText.setText(correctAnswers[arraySpot])
         selectedAnswerText.setText(selectedAnswer)
         correctAnswerCount.setText(numberOfCorrectAnswers.toString())
 
-
-        if(questionsLeft.toString().equals("0")){
-            nextButton.visibility = View.INVISIBLE
-            finishButton.visibility = View.VISIBLE
-        }else{
+        questionsLeft--
+        if(questionsLeft > 0){
             nextButton.visibility = View.VISIBLE
             finishButton.visibility = View.INVISIBLE
-
+        }else{
+            nextButton.visibility = View.INVISIBLE
+            finishButton.visibility = View.VISIBLE
         }
 
-        correctAnswerCount.setText("You have ${numberOfCorrectAnswers} out of ${questionsCount} correct")
+        correctAnswerCount.setText("You have ${numberOfCorrectAnswers} out of ${questions.size} correct")
 
         finishButton.setOnClickListener({ view ->
             val intent = Intent(activity, MainActivity::class.java)
@@ -152,12 +202,25 @@ class AnswerFragment : Fragment() {
         })
 
         nextButton.setOnClickListener({ view ->
-            val intent = Intent(activity, FragmentHolders::class.java)
+            arraySpot++
+            bundle.putString("Description", description)
+            bundle.putString("Topic", topic)
+            bundle.putStringArray("Questions",questions)
+            bundle.putStringArray("Answers", answers)
+            bundle.putString("Topic", topic)
+            bundle.putInt("CorrectAnswersCount", numberOfCorrectAnswers )
+            bundle.putInt("QuestionsLeft", questionsLeft)
+            bundle.putString("SelectedAnswer", selectedAnswer)
+            bundle.putStringArray("CorrectAnswers", correctAnswers)
+            bundle.putInt("ArraySpot",arraySpot)
 
-            intent.putExtra("IsQuestionFragmentLoaded", true)
-            intent.putExtra("IsAnswerFragmentLoaded", false)
-            intent.putExtra("IsOverviewFragmentLoaded", false)
-            activity?.onBackPressed()
+
+            val transaction = fragmentManager!!.beginTransaction()
+            val fragment = QuestionFragment()
+            fragment.arguments = bundle
+            transaction.replace(R.id.fragment_holder, fragment)
+            transaction.addToBackStack(null)
+            transaction.commit()
 
         })
 
