@@ -56,7 +56,7 @@ class MainActivity : AppCompatActivity() {
 
             listView.setOnItemClickListener({ parent, v, position, id ->
 
-                
+
                 intent.putExtra("topic", listView.getItemAtPosition(position).toString())
                 intent.putExtra("questions", mathQuestions[0]);
                 intent.putExtra("answers", mathAnswers);
@@ -77,6 +77,7 @@ class MainActivity : AppCompatActivity() {
                 startActivity(intent)
 
             }
+
             if(classes[position].equals("Marvel Super Heroes")){
 
 
